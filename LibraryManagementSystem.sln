@@ -12,15 +12,20 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{BE1FBBCD-A
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "HH.Lms", "HH.Lms", "{FD4C479F-EEE3-4464-AA66-30C94E0889EA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HH.Lms.Data", "src\HH.Lms\HH.Lms.Data\HH.Lms.Data.csproj", "{521D17B3-520C-4A9C-A7A5-A82B789D1EB0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HH.Lms.Data", "src\HH.Lms\HH.Lms.Data\HH.Lms.Data.csproj", "{521D17B3-520C-4A9C-A7A5-A82B789D1EB0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HH.Lms.Api", "src\HH.Lms\HH.Lms.Api\HH.Lms.Api.csproj", "{2CDA030C-46BC-4983-9B16-DEA889D754CC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HH.Lms.Api", "src\HH.Lms\HH.Lms.Api\HH.Lms.Api.csproj", "{2CDA030C-46BC-4983-9B16-DEA889D754CC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HH.Lms.Common", "src\HH.Lms\HH.Lms.Common\HH.Lms.Common.csproj", "{AEFE3C16-6AEB-478C-8AFA-935255352184}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HH.Lms.Common", "src\HH.Lms\HH.Lms.Common\HH.Lms.Common.csproj", "{AEFE3C16-6AEB-478C-8AFA-935255352184}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HH.Lms.Service", "src\HH.Lms\HH.Lms.Service\HH.Lms.Service.csproj", "{5E346AD2-974F-4A86-8AE4-82F2E743F023}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HH.Lms.Service", "src\HH.Lms\HH.Lms.Service\HH.Lms.Service.csproj", "{5E346AD2-974F-4A86-8AE4-82F2E743F023}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HH.Lms.UnitTest", "src\HH.Lms\HH.Lms.UnitTest\HH.Lms.UnitTest.csproj", "{77D692EA-D4DC-4850-9D90-378B11E4DBA8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HH.Lms.UnitTest", "src\HH.Lms\HH.Lms.UnitTest\HH.Lms.UnitTest.csproj", "{77D692EA-D4DC-4850-9D90-378B11E4DBA8}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Config", "Config", "{0257FE89-F1E0-436A-8BF1-E48F9C0AD64A}"
+	ProjectSection(SolutionItems) = preProject
+		SharedSettings.json = SharedSettings.json
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -59,6 +64,7 @@ Global
 		{AEFE3C16-6AEB-478C-8AFA-935255352184} = {FD4C479F-EEE3-4464-AA66-30C94E0889EA}
 		{5E346AD2-974F-4A86-8AE4-82F2E743F023} = {FD4C479F-EEE3-4464-AA66-30C94E0889EA}
 		{77D692EA-D4DC-4850-9D90-378B11E4DBA8} = {FD4C479F-EEE3-4464-AA66-30C94E0889EA}
+		{0257FE89-F1E0-436A-8BF1-E48F9C0AD64A} = {FD4C479F-EEE3-4464-AA66-30C94E0889EA}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {B4737898-2893-4F24-9343-2C106AE9C090}

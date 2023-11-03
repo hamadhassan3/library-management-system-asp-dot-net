@@ -1,12 +1,7 @@
-﻿using HH.Lms.Service.Common.Dto;
+﻿using HH.Lms.Service.Dto;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace HH.Lms.Api.Controllers
 {
