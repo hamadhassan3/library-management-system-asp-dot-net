@@ -5,6 +5,11 @@ namespace HH.Lms.Data.Repository.EntityRepository;
 
 public class BookRepository: GenericRepository<Book>
 {
+    public BookRepository()
+    {
+
+    }
+
     public BookRepository(LibraryDBContext dbContext) : base(dbContext)
     {
     }

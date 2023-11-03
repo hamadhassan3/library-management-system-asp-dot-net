@@ -9,13 +9,16 @@
 
   <ItemGroup>
     <ProjectReference Include="..\HH.Lms.Data\HH.Lms.Data.csproj" />
+    <ProjectReference Include="..\HH.Lms.Service\HH.Lms.Service.csproj" />
   </ItemGroup>
 
   <ItemGroup>
     <Folder Include="DataTests\Library\" />
+    <Folder Include="ServiceTests\Integration\" />
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.1" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="7.0.13" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.7.2" />
     <PackageReference Include="Moq" Version="4.20.69" />

@@ -2,7 +2,7 @@
 
 namespace HH.Lms.Data.Repositories;
 
-internal interface IGenericRepository<T> where T : IBaseEntity
+public interface IGenericRepository<T> where T : IBaseEntity
 {
     Task<T> GetByIdAsync(int id);
     Task<IEnumerable<T>> GetAllAsync();
