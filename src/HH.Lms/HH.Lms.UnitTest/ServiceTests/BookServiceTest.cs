@@ -1,0 +1,110 @@
+﻿using AutoMapper;
+using Folio3.Sbp.Service;
+using HH.Lms.Data.Library;
+using HH.Lms.Data.Library.Entities;
+using HH.Lms.Data.Repository;
+using HH.Lms.Data.Repository.EntityRepository;
+using HH.Lms.Service.Base;
+using HH.Lms.Service.Library;
+using HH.Lms.Service.Library.Dto;
+using Moq;
+using Org.BouncyCastle.Crypto;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using Xunit;
+
+namespace HH.Lms.UnitTest.ServiceTests
+{
+    public class BookServiceTests
+    {
+        [Fact]
+        public async Task AddAsync_ShouldReturnSuccessResult()
+        {
+            var mapperMock = new Mock<IMapper>();
+            var repositoryMock = new Mock<BookRepository>();
+            var bookMock = new Mock<Book>();
+
+            var bookDto = new BookDto();
+
+            repositoryMock.Setup((r) => r.Add(It.IsAny<Book>())).Callback(() => { 
+                // Does nothing
+            });
+            mapperMock.Setup((s) => s.Map<Book>(bookDto)).Returns(bookMock.Object);
+            var bookService = new BookService(repositoryMock.Object, mapperMock.Object);
+
+            var result = bookService.AddAsync(bookDto);
+
+            Assert.True(result.Success);
+            Assert.Equal(bookDto, result.Data);
+            repositoryMock.Verify(r => r.Add(It.IsAny<Book>()), Times.Once);
+        }
+
+        [Fact]
+        public async Task UpdateAsync_ShouldReturnSuccessResult()
+        {
+            var mapperMock = new Mock<IMapper>();
+            var repositoryMock = new Mock<BookRepository>();
+            var bookMock = new Mock<Book>();
+
+            repositoryMock.Setup((r) => r.Update(It.IsAny<Book>())).Callback(() => {
+                // Does nothing
+            });
+            mapperMock.Setup((s) => s.Map<Book>(It.IsAny<BookDto>())).Returns(bookMock.Object);
+            var bookService = new BookService(repositoryMock.Object, mapperMock.Object);
+            var bookDto = new BookDto();
+
+            var result = bookService.UpdateAsync(bookDto);
+
+            Assert.True(result.Success);
+            Assert.Equal(bookDto, result.Data);
+            repositoryMock.Verify(r => r.Update(It.IsAny<Book>()), Times.Once);
+        }
+
+        [Fact]
+        public async Task DeleteAsync_ShouldReturnSuccessResult()
+        {
+            var mapperMock = new Mock<IMapper>();
+            var repositoryMock = new Mock<BookRepository>();
+            var bookMock = new Mock<Book>();
+
+            repositoryMock.Setup((r) => r.Delete(It.IsAny<Book>())).Callback(() => {
+                // Does nothing
+            });
+            mapperMock.Setup((s) => s.Map<Book>(It.IsAny<BookDto>())).Returns(bookMock.Object);
+            var bookService = new BookService(repositoryMock.Object, mapperMock.Object);
+            var bookId = 1;
+
+            repositoryMock.Setup(r => r.GetByIdAsync(It.IsAny<int>())).ReturnsAsync(new Book()); // Assuming GetByIdAsync returns a Book entity
+
+            var result = await bookService.DeleteAsync(bookId);
+
+            Assert.True(result.Success);
+            Assert.Null(result.Data);
+            repositoryMock.Verify(r => r.Update(It.IsAny<Book>()), Times.Once);
+        }
+
+        [Fact]
+        public async Task GetAsync_ShouldReturnSuccessResult()
+        {
+            var mapperMock = new Mock<IMapper>();
+            var repositoryMock = new Mock<BookRepository>();
+            var bookMock = new Mock<Book>();
+            var bookDto = new Mock<BookDto>();
+
+            mapperMock.Setup((s) => s.Map<BookDto>(It.IsAny<Book>())).Returns(bookDto.Object);
+            var bookService = new BookService(repositoryMock.Object, mapperMock.Object);
+            var bookId = 1;
+
+            repositoryMock.Setup(r => r.GetByIdAsync(It.IsAny<int>())).ReturnsAsync(bookMock.Object);
+
+            var result = await bookService.GetAsync(bookId);
+
+            Assert.True(result.Success);
+            Assert.NotNull(result.Data);
+            mapperMock.Verify(m => m.Map<BookDto>(It.IsAny<Book>()), Times.Once);
+        }
+    }
+}

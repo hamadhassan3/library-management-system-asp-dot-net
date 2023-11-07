@@ -1,6 +1,7 @@
 ﻿
 using Microsoft.Extensions.Hosting;
 using Microsoft.AspNetCore.Hosting;
+using HH.Lms.Common.Config;
 
 namespace HH.Lms.Api
 {
@@ -15,7 +16,13 @@ namespace HH.Lms.Api
             Host.CreateDefaultBuilder(args)
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
-                    webBuilder.UseStartup<Startup>();
+                    webBuilder
+                        .ConfigureAppConfiguration((context, builder) =>
+                            builder.CombineSettings(
+                                context.HostingEnvironment.EnvironmentName,
+                                context.HostingEnvironment.ContentRootPath,
+                                @".."))
+                        .UseStartup<Startup>();
                 });
     }
 }
