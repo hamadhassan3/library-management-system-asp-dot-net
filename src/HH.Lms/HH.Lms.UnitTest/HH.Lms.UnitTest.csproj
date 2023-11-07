@@ -14,7 +14,6 @@
 
   <ItemGroup>
     <Folder Include="DataTests\Library\" />
-    <Folder Include="ServiceTests\Integration\" />
   </ItemGroup>
 
   <ItemGroup>
