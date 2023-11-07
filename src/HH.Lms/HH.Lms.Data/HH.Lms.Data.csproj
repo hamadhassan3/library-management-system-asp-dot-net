@@ -10,17 +10,6 @@
     <EmbeddedResource Remove="Common\**" />
     <None Remove="Common\**" />
   </ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="7.0.13" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.13" />
-    <PackageReference Include="MySql.Data" Version="8.2.0" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Compile Remove="Common\**" />
-    <EmbeddedResource Remove="Common\**" />
-    <None Remove="Common\**" />
-  </ItemGroup>
-
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="7.0.13" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.13" />
@@ -30,5 +19,4 @@
   <ItemGroup>
     <ProjectReference Include="..\HH.Lms.Common\HH.Lms.Common.csproj" />
   </ItemGroup>
-
 </Project>
