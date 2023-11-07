@@ -11,6 +11,6 @@ public class Book : TrackableEntity
     public string Description { get; set; }
 
     // Linking Book to User
-    public string? UserId { get; set; }
+    public int? UserId { get; set; }
     public User User { get; set; }
 }
