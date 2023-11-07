@@ -1,6 +1,8 @@
 ﻿using HH.Lms.Common.Entity;
 using HH.Lms.Data.Repositories;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
+using MySqlX.XDevAPI.Common;
 
 namespace HH.Lms.Data.Repository;
 
@@ -28,23 +30,30 @@ public class GenericRepository<T> : IGenericRepository<T> where T : class, IBase
         return await _dbSet.AsNoTracking().ToListAsync();
     }
 
-    public virtual void Add(T entity)
+    public virtual T Add(T entity)
     {
-        _dbSet.Add(entity);
+        EntityEntry<T> result = _dbSet.Add(entity);
+
+        if (result == null)
+        {
+            return null;
+        }
+
+        return result.Entity;
     }
 
-    public virtual void Update(T entity)
+    public virtual T Update(T entity)
     {
-        _dbSet.Attach(entity);
-        _dbContext.Entry(entity).State = EntityState.Modified;
+        var result = _dbSet.Update(entity);
+        if (result == null)
+        {
+            return null;
+        }
+        return result.Entity;
     }
 
     public virtual void Delete(T entity)
     {
-        if (_dbContext.Entry(entity).State == EntityState.Detached)
-        {
-            _dbSet.Attach(entity);
-        }
         _dbSet.Remove(entity);
     }
 
