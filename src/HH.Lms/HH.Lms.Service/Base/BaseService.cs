@@ -4,6 +4,7 @@ using HH.Lms.Common.Entity;
 using HH.Lms.Data.Repository;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace HH.Lms.Service.Base
 {
@@ -23,22 +24,25 @@ namespace HH.Lms.Service.Base
             this.Mapper = mapper;
         }
 
-        public ServiceResult<TDto> AddAsync(TDto dto)
+        public async Task<ServiceResult<TDto>> AddAsync(TDto dto)
         {
-            GenericRepository.Add(Mapper.Map<TEntity>(dto));
-            return Success(dto);
+            TEntity res = GenericRepository.Add(Mapper.Map<TEntity>(dto));
+            await GenericRepository.SaveChangesAsync();
+            return Success(Mapper.Map<TDto>(res));
         }
 
-        public ServiceResult<TDto> UpdateAsync(TDto dto)
+        public async Task<ServiceResult<TDto>> UpdateAsync(TDto dto)
         {
             GenericRepository.Update(Mapper.Map<TEntity>(dto));
+            await GenericRepository.SaveChangesAsync();
             return Success(dto);
         }
 
         public async Task<ServiceResult<TDto>> DeleteAsync(int id)
         {
             ServiceResult<TDto> dto = await GetAsync(id);
-            GenericRepository.Update(Mapper.Map<TEntity>(dto.Data));
+            GenericRepository.Delete(Mapper.Map<TEntity>(dto.Data));
+            await GenericRepository.SaveChangesAsync();
             return Result(default(TDto), true);
         }
 
@@ -48,6 +52,15 @@ namespace HH.Lms.Service.Base
             return Success(Mapper.Map<TDto>(entity));
         }
 
+        public async Task<ServiceResult<IEnumerable<TDto>>> GetAllAsync()
+        {
+            IEnumerable<TEntity> entity = await GenericRepository.GetAllAsync();
+            return new ServiceResult<IEnumerable<TDto>> {
+                    Success = true,
+                    Errors =  new List<string>(),
+                    Data = Mapper.Map<IEnumerable<TDto>>(entity)
+                };
+        }
 
         protected static ServiceResult<TDto> Success(TDto data)
         {
