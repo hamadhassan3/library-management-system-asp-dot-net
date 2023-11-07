@@ -1,3 +1,6 @@
+﻿using HH.Lms.Data.Interceptors;
+using HH.Lms.Data.Library;
+using Microsoft.AspNetCore.Builder;
 ﻿using HH.Lms.Data.Library;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -24,10 +27,12 @@ namespace HH.Lms.Api
 
             if (!string.IsNullOrEmpty(connectionString))
             {
-                services.AddDbContext<LibraryDBContext>(options =>
-                    options.UseMySQL(connectionString)
-                );
+                services.AddDbContext<LibraryDBContext>(options => {
+                    options.UseMySQL(connectionString);
+                    options.AddInterceptors(new DatabaseInterceptor());
+                });
             }
+
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
