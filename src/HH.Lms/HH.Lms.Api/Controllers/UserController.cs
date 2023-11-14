@@ -1,7 +1,9 @@
-﻿using HH.Lms.Service;
+﻿using FluentValidation.Results;
+using HH.Lms.Service;
 using HH.Lms.Service.Dto;
 using HH.Lms.Service.Library;
 using HH.Lms.Service.Library.Dto;
+using HH.Lms.Service.Library.Validator;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -62,8 +64,19 @@ namespace HH.Lms.Api.Controllers
         [HttpPost]
         public async Task<ResponseDto<UserDto>> CreateUser([FromBody] UserDto userDto)
         {
-            ServiceResult<UserDto> user = await userService.AddAsync(userDto);
-            return Result(user);
+            var validator = new UserDtoValidator();
+
+            ValidationResult result = validator.Validate(userDto);
+
+            if (result.IsValid)
+            {
+                ServiceResult<UserDto> user = await userService.AddAsync(userDto);
+                return Result(user);
+            }
+            else
+            {
+                return new ResponseDto<UserDto> { Success = false, Message = "Invalid Dto!", Errors = result.Errors.Select(e => e.ErrorMessage).ToList() };
+            }
         }
 
         /// <summary>
@@ -74,8 +87,19 @@ namespace HH.Lms.Api.Controllers
         [HttpPut]
         public async Task<ResponseDto<UserDto>> UpdateUser([FromBody] UserDto userDto)
         {
-            ServiceResult<UserDto> user = await userService.UpdateAsync(userDto);
-            return Result(user);
+            var validator = new UserDtoValidator();
+
+            ValidationResult result = validator.Validate(userDto);
+
+            if (result.IsValid)
+            {
+                ServiceResult<UserDto> user = await userService.UpdateAsync(userDto);
+                return Result(user);
+            }
+            else
+            {
+                return new ResponseDto<UserDto> { Success = false, Message = "Invalid Dto!", Errors = result.Errors.Select(e => e.ErrorMessage).ToList() };
+            }
         }
 
         /// <summary>

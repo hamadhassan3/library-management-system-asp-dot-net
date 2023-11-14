@@ -1,7 +1,9 @@
-﻿using HH.Lms.Service;
+﻿using FluentValidation.Results;
+using HH.Lms.Service;
 using HH.Lms.Service.Dto;
 using HH.Lms.Service.Library;
 using HH.Lms.Service.Library.Dto;
+using HH.Lms.Service.Library.Validator;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -85,8 +87,19 @@ public class BookController : BaseController
     [HttpPost]
     public async Task<ResponseDto<BookDto>> CreateBook([FromBody] BookDto bookDto)
     {
-        ServiceResult<BookDto> book = await bookService.AddAsync(bookDto);
-        return Result(book);
+        var validator = new BookDtoValidator();
+
+        ValidationResult result = validator.Validate(bookDto);
+
+        if (result.IsValid)
+        {
+            ServiceResult<BookDto> book = await bookService.AddAsync(bookDto);
+            return Result(book);
+        }
+        else
+        {
+            return new ResponseDto<BookDto> { Success = false, Message = "Invalid Dto!", Errors = result.Errors.Select(e => e.ErrorMessage).ToList() };
+        }
     }
 
     /// <summary>
@@ -97,8 +110,19 @@ public class BookController : BaseController
     [HttpPut]
     public async Task<ResponseDto<BookDto>> UpdateBook([FromBody] BookDto bookDto)
     {
-        ServiceResult<BookDto> book = await bookService.UpdateAsync(bookDto);
-        return Result(book);
+        var validator = new BookDtoValidator();
+
+        ValidationResult result = validator.Validate(bookDto);
+
+        if (result.IsValid)
+        {
+            ServiceResult<BookDto> book = await bookService.UpdateAsync(bookDto);
+            return Result(book);
+        }
+        else
+        {
+            return new ResponseDto<BookDto> { Success = false, Message = "Invalid Dto!", Errors = result.Errors.Select(e => e.ErrorMessage).ToList() };
+        }
     }
 
     /// <summary>

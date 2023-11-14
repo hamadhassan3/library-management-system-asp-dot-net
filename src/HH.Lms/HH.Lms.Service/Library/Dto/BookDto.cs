@@ -14,6 +14,6 @@ public class BookDto : IDto
 
     public string Author { get; set; }
 
-    public int UserId { get; set; }
+    public int? UserId { get; set; }
 
 }
