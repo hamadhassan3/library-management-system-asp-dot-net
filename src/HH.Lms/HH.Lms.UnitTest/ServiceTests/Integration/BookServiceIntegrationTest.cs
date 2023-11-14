@@ -130,7 +130,7 @@ namespace HH.Lms.UnitTest.ServiceTests.Integration
 
             mapper = mapperMock.Object;
 
-            bookService = new BookService(new BookRepository(dbContext), mapper);
+            bookService = new BookService(new BookRepository(dbContext), new UserRepository(dbContext), mapper);
         }
 
         [Fact]
@@ -151,8 +151,8 @@ namespace HH.Lms.UnitTest.ServiceTests.Integration
             Assert.Contains(ls, b => b.Id == testBook2.Id);
 
             // Cleaning up
-            await bookService.DeleteAsync(testBook1.Id);
-            await bookService.DeleteAsync(testBook2.Id);
+            await bookService.DeleteAsync(new BookDto { Id = testBook1.Id });
+            await bookService.DeleteAsync(new BookDto { Id = testBook2.Id });
         }
 
         [Fact]
@@ -165,7 +165,7 @@ namespace HH.Lms.UnitTest.ServiceTests.Integration
             Assert.NotNull(result);
             Assert.Equal(testBook1.Id, result.Id);
 
-            await bookService.DeleteAsync(testBook1.Id);
+            await bookService.DeleteAsync(new BookDto { Id = testBook1.Id });
         }
 
         [Fact]
@@ -183,7 +183,7 @@ namespace HH.Lms.UnitTest.ServiceTests.Integration
             Assert.Equal(newBook.Author, retrievedBook.Author);
             Assert.Equal(newBook.Title, retrievedBook.Title);
 
-            await bookService.DeleteAsync(addedBook.Data.Id);
+            await bookService.DeleteAsync(new BookDto { Id = addedBook.Data.Id });
         }
 
         [Fact]
@@ -208,7 +208,7 @@ namespace HH.Lms.UnitTest.ServiceTests.Integration
             Assert.Equal(updatedBook.Author, retrievedBook.Data.Author);
             Assert.Equal(updatedBook.Title, retrievedBook.Data.Title);
 
-            await bookService.DeleteAsync(retrievedBook.Data.Id);
+            await bookService.DeleteAsync(new BookDto { Id = retrievedBook.Data.Id });
         }
     }
 }
