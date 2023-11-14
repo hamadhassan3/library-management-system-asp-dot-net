@@ -1,4 +1,4 @@
-﻿namespace Folio3.Sbp.Service;
+﻿namespace HH.Lms.Service;
 
 /// <summary>
 /// Represents the result of a service method call
