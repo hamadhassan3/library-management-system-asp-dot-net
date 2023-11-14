@@ -9,7 +9,7 @@ namespace HH.Lms.Service.Library.Dto
         public string LastName { get; set; }
         public string Role { get; set; }
 
-        public ICollection<BookDto> Books { get; set; }
+        public ICollection<BookDto>? Books { get; set; }
 
     }
 }
