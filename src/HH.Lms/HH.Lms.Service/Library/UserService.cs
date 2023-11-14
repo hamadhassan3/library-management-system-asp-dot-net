@@ -3,11 +3,6 @@ using HH.Lms.Data.Library.Entities;
 using HH.Lms.Data.Repository.EntityRepository;
 using HH.Lms.Service.Base;
 using HH.Lms.Service.Library.Dto;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace HH.Lms.Service.Library
 {
@@ -21,6 +16,20 @@ namespace HH.Lms.Service.Library
             : base(repository, mapper)
         {
             this.repository = repository;
+        }
+
+        public async Task<ServiceResult<UserDto>> loadBooks(int userId)
+        {
+            User user = await repository.GetByIdAsync(userId);
+
+            if (user == null)
+            {
+                return Failure("A user with this id does not exist!");
+            }
+
+            await repository.loadBooks(user);
+
+            return Success(Mapper.Map<UserDto>(user));
         }
     }
 }
