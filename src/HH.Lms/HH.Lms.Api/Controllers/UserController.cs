@@ -3,7 +3,6 @@ using HH.Lms.Service.Dto;
 using HH.Lms.Service.Library;
 using HH.Lms.Service.Library.Dto;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace HH.Lms.Api.Controllers
@@ -23,7 +22,7 @@ namespace HH.Lms.Api.Controllers
         /// This method gets all the users stored in the system.
         /// </summary>
         /// <returns> The list of users. </returns>
-        [AllowAnonymous]
+        [Authorize(Roles = "Admin")]
         [HttpGet("")]
         public async Task<ResponseDto<IEnumerable<UserDto>>> GetAllUsers()
         {
@@ -35,7 +34,7 @@ namespace HH.Lms.Api.Controllers
         /// This method gets a user using its id.
         /// </summary>
         /// <returns> The User. </returns>
-        [AllowAnonymous]
+        [Authorize(Roles = "Admin")]
         [HttpGet("{id}")]
         public async Task<ResponseDto<UserDto>> GetUserById(int id)
         {
@@ -47,7 +46,7 @@ namespace HH.Lms.Api.Controllers
         /// This method gets a user using its id after eager loading the books.
         /// </summary>
         /// <returns> The User. </returns>
-        [AllowAnonymous]
+        [Authorize(Roles = "Admin,User")]
         [HttpGet("{id}/books")]
         public async Task<ResponseDto<UserDto>> GetUserByIdWithBooks(int id)
         {
@@ -59,7 +58,7 @@ namespace HH.Lms.Api.Controllers
         /// Creates a user using the data in payload.
         /// </summary>
         /// <returns> The created user. </returns>
-        [AllowAnonymous]
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         public async Task<ResponseDto<UserDto>> CreateUser([FromBody] UserDto userDto)
         {
@@ -71,7 +70,7 @@ namespace HH.Lms.Api.Controllers
         /// Updates a user using the data in payload.
         /// </summary>
         /// <returns> The updated user. </returns>
-        [AllowAnonymous]
+        [Authorize(Roles = "Admin")]
         [HttpPut]
         public async Task<ResponseDto<UserDto>> UpdateUser([FromBody] UserDto userDto)
         {
@@ -83,7 +82,7 @@ namespace HH.Lms.Api.Controllers
         /// Deletes a user using its id.
         /// </summary>
         /// <returns> Success if the user is deleted. </returns>
-        [AllowAnonymous]
+        [Authorize(Roles = "Admin")]
         [HttpDelete("{id}")]
         public async Task<ResponseDto<string>> DeleteUser(int id)
         {

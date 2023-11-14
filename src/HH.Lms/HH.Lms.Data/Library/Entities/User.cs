@@ -17,5 +17,5 @@ public class User : TrackableEntity
     [Display(Name = "Name")] public string FullName => $"{FirstName} {LastName}";
 
     // Linking to Book (One to many)
-    public ICollection<Book> Books { get; set; }
+    public ICollection<Book>? Books { get; set; }
 }
