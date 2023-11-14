@@ -10,7 +10,7 @@ public abstract class BaseService<TEntity, TDto>
 {
     private GenericRepository<TEntity> GenericRepository { get; set; }
 
-    private IMapper Mapper { get; set; }
+    protected IMapper Mapper { get; set; }
 
     protected BaseService(
         GenericRepository<TEntity> genericRepository,
@@ -34,12 +34,10 @@ public abstract class BaseService<TEntity, TDto>
         return Success(dto);
     }
 
-    public async Task<ServiceResult<TDto>> DeleteAsync(int id)
+    public async Task DeleteAsync(TDto dto)
     {
-        ServiceResult<TDto> dto = await GetAsync(id);
-        GenericRepository.Delete(Mapper.Map<TEntity>(dto.Data));
+        GenericRepository.Delete(Mapper.Map<TEntity>(dto));
         await GenericRepository.SaveChangesAsync();
-        return Result(default(TDto), true);
     }
 
     public async Task<ServiceResult<TDto>> GetAsync(int id)

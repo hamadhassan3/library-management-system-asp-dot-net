@@ -73,10 +73,8 @@ namespace HH.Lms.UnitTest.ServiceTests
 
             repositoryMock.Setup(r => r.GetByIdAsync(It.IsAny<int>())).ReturnsAsync(new User());
 
-            var result = await userService.DeleteAsync(userId);
+            await userService.DeleteAsync(userId);
 
-            Assert.True(result.Success);
-            Assert.Null(result.Data);
         }
 
         [Fact]

@@ -44,7 +44,7 @@ namespace HH.Lms.Data.Migrations
                     Title = table.Column<string>(type: "varchar(255)", maxLength: 255, nullable: false),
                     Author = table.Column<string>(type: "varchar(100)", maxLength: 100, nullable: false),
                     Description = table.Column<string>(type: "varchar(1000)", maxLength: 1000, nullable: false),
-                    UserId = table.Column<int>(type: "int", nullable: false),
+                    UserId = table.Column<int>(type: "int", nullable: true),
                     Version = table.Column<int>(type: "int", nullable: false),
                     Created = table.Column<DateTime>(type: "datetime(6)", nullable: false),
                     Updated = table.Column<DateTime>(type: "datetime(6)", nullable: false)
