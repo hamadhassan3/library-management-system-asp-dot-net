@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace HH.Lms.Data.Migrations
 {
     [DbContext(typeof(LibraryDBContext))]
-    [Migration("20231107141045_InitialCreate")]
+    [Migration("20231108133447_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -55,7 +55,6 @@ namespace HH.Lms.Data.Migrations
                         .HasColumnType("datetime(6)");
 
                     b.Property<int?>("UserId")
-                        .IsRequired()
                         .HasColumnType("int");
 
                     b.Property<int>("Version")
@@ -108,8 +107,7 @@ namespace HH.Lms.Data.Migrations
                     b.HasOne("HH.Lms.Data.Library.Entities.User", "User")
                         .WithMany("Books")
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.Navigation("User");
                 });

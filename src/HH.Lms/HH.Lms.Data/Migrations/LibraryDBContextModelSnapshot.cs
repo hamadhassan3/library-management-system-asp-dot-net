@@ -52,7 +52,6 @@ namespace HH.Lms.Data.Migrations
                         .HasColumnType("datetime(6)");
 
                     b.Property<int?>("UserId")
-                        .IsRequired()
                         .HasColumnType("int");
 
                     b.Property<int>("Version")
@@ -105,8 +104,7 @@ namespace HH.Lms.Data.Migrations
                     b.HasOne("HH.Lms.Data.Library.Entities.User", "User")
                         .WithMany("Books")
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.Navigation("User");
                 });

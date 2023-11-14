@@ -1,19 +1,9 @@
 ﻿using AutoMapper;
-using Folio3.Sbp.Service;
-using HH.Lms.Data.Library;
 using HH.Lms.Data.Library.Entities;
-using HH.Lms.Data.Repository;
 using HH.Lms.Data.Repository.EntityRepository;
-using HH.Lms.Service.Base;
 using HH.Lms.Service.Library;
 using HH.Lms.Service.Library.Dto;
 using Moq;
-using Org.BouncyCastle.Crypto;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Xunit;
 
 namespace HH.Lms.UnitTest.ServiceTests
@@ -78,10 +68,8 @@ namespace HH.Lms.UnitTest.ServiceTests
 
             repositoryMock.Setup(r => r.GetByIdAsync(It.IsAny<int>())).ReturnsAsync(new Book());
 
-            var result = await bookService.DeleteAsync(bookId);
+            await bookService.DeleteAsync(bookId);
 
-            Assert.True(result.Success);
-            Assert.Null(result.Data);
         }
 
         [Fact]

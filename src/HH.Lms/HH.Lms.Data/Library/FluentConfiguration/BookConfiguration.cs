@@ -18,6 +18,7 @@ namespace HH.Lms.Data.Library.FluentConfiguration
             builder.HasOne(b => b.User)
                 .WithMany(u => u.Books)
                 .HasForeignKey(b => b.UserId)
+                .IsRequired(false)
                 .OnDelete(DeleteBehavior.Restrict);
         }
     }

@@ -3,14 +3,15 @@ using HH.Lms.Data.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using MySqlX.XDevAPI.Common;
+using System.Linq.Expressions;
 
 namespace HH.Lms.Data.Repository;
 
 
 public class GenericRepository<T> : IGenericRepository<T> where T : class, IBaseEntity
 {
-    private readonly DbContext _dbContext;
-    private readonly DbSet<T> _dbSet;
+    protected readonly DbContext _dbContext;
+    protected readonly DbSet<T> _dbSet;
 
     public GenericRepository() { }
 
@@ -18,6 +19,18 @@ public class GenericRepository<T> : IGenericRepository<T> where T : class, IBase
     {
         _dbContext = dbContext ?? throw new ArgumentNullException(nameof(dbContext));
         _dbSet = _dbContext.Set<T>();
+    }
+
+    public virtual async Task<IEnumerable<T>> Find(List<Expression<Func<T, bool>>> predicates)
+    {
+        IQueryable<T> query = _dbSet;
+
+        foreach (var predicate in predicates)
+        {
+            query = query.Where(predicate);
+        }
+
+        return await query.ToListAsync();
     }
 
     public virtual async Task<T> GetByIdAsync(int id)
