@@ -1,9 +1,4 @@
 ﻿using HH.Lms.Service.Base;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace HH.Lms.Service.Library.Dto
 {
@@ -14,6 +9,7 @@ namespace HH.Lms.Service.Library.Dto
         public string LastName { get; set; }
         public string Role { get; set; }
 
+        public ICollection<BookDto> Books { get; set; }
 
     }
 }
